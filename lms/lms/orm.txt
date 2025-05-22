@@ -1,0 +1,46 @@
+CRUD With ORM
+
+from django.db.models import Q
+
+Courses.object.create(title = 'Data Science', description='bjwswbk kjekj ',
+                    image ='photo.jpg, instructor = 'Roobert ',
+                    category = 'It & support', level= 'Intermediate',
+                    fees = 40000 , offerfees = 35000)
+
+
+orm querry for fetch all records
+
+
+Courses.objects.all()
+
+orm querry for fetch record with id = 5.
+
+Courses.objects.get(id = 5)
+
+orm querry for fetch all  begginer level Courses
+
+Courses.objects.filter(level = 'begginner')
+
+orm querry for fetch all courses with price 350000
+
+Courses.objects.filter(fees = 350000)\
+
+orm querry for all courses with price less than or equal to 50000
+
+Courses.objects.filter(fees__lte = 50000)
+
+
+orm querry to fetch all courses otherthan level = 'begginer'
+
+
+
+Courses.object.filter().exclude(level = 'begginer')
+
+courses -- search querry
+
+Courses.objects.filter(Q(title __icontains = querry) | Q(description __icontains = querry ) |
+                        Q(image __icontains = querry) | Q(category __icontains = querry))
+                        
+filter begginer level courses and intermediate courses.
+
+Courses.objects.filter(level= 'begginner' | level = 'intermediate')
