@@ -70,7 +70,7 @@ class InstructorCourseListView(View):
 
         print(query)
 
-        instructor = Instructors.objects.get(id = 1)
+        instructor = Instructors.objects.get(profile= request.user)
 
         courses = Courses.objects.filter(instructor =instructor)
 

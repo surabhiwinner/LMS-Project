@@ -65,14 +65,14 @@
             <h1 class="mb-5"> Courses</h1>
         </div>
 
-
+        <!-- search bar section  -->
         <div class="row justify-content-end">
             <div class="col-6 my-4">
                 <form action="{% url 'course-list' %}" method="get">
                 <input class="form-control" type="text" placeholder="search courses" name="query"{% if query %} value="{{query}}" {% endif %}>
                 </form>
-            </div>
-
+        </div>
+        <!-- searchbar end  -->
 
         </div>
         <div class="row g-4 justify-content-center">
