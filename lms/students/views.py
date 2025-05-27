@@ -7,6 +7,8 @@ from django.contrib.auth.hashers import make_password
 
 from django.db import transaction
 
+from lms.utility import send_email
+
 # Create your views here.
 
 
@@ -70,7 +72,18 @@ class StudentRegisterView(View):
 
                     student.save()
 
+                    subject = 'Successfully Registered !!!'
 
+                    recepient = student.profile.email
+                    
+                    template = 'email/success-registration.html'
+
+                    context = {'name':student.name,'username':student.profile.email,'password':password}
+
+                    send_email(subject,recepient,template,context)
+
+
+                    
                     return redirect('login')
             
         data = {

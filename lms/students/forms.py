@@ -74,7 +74,7 @@ class StudentForm(forms.ModelForm):
         
         qualification    =  forms.ChoiceField(choices=QualificationChoices.choices,
                                                   widget=forms.Select(attrs={
-                                                      'class' :   'form-select',
+                                                      'class' :   'form-control',
                                                       'required'  :   'required'
                                                   }))
             

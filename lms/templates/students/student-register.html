@@ -79,7 +79,6 @@
          
         <div class="mb-3">
             <label for="courseCategory" class="form-label">Qualification</label>
-            
             {{ student_form.qualification }}
             {% if student_form.qualification.errors %}
                     <p class="text-danger">{{ student_form.qualification.errors | join:" " }}</p>
@@ -94,7 +93,7 @@
           
   
           <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-4">Register Student </button>
+            <button type="submit" class="btn btn-primary text-white mt-4 mb-3">Register Student </button>
           </div>
         </form>
       </div>
