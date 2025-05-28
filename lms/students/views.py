@@ -9,6 +9,9 @@ from django.db import transaction
 
 from lms.utility import send_email
 
+
+import threading
+
 # Create your views here.
 
 
@@ -80,7 +83,11 @@ class StudentRegisterView(View):
 
                     context = {'name':student.name,'username':student.profile.email,'password':password}
 
-                    send_email(subject,recepient,template,context)
+                    thread = threading.Thread(target=send_email,args=(subject,recepient,template,context))
+
+                    thread.start()
+
+                    # send_email(subject,recepient,template,context)
 
 
                     
