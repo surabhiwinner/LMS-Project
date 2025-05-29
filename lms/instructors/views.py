@@ -1,8 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.views import View
 
 from .forms import InstructorForm
+
+from django.db import  transaction
+
+import threading
+
+from lms.utility import send_email
+
+from django.contrib.auth.hashers import make_password
 
 from students.forms import ProfileForm
 
@@ -25,69 +33,69 @@ class InstructorRegisterView(View):
         return render(request,'instructors/instructor-register.html', context=data)
 
 
-    # def post(self, request, *args , **kwrgs):
+    def post(self, request, *args , **kwrgs):
 
-    #     profile_form = ProfileForm(request.POST)
+        profile_form = ProfileForm(request.POST)
 
-    #     student_form = StudentForm(request.POST, request.FILES)
+        instructor_form = InstructorForm(request.POST, request.FILES)
 
-    #     print(profile_form.errors)
+        print(profile_form.errors)
 
-    #     print(student_form.errors)
-
-
-    #     if profile_form.is_valid():
-
-    #         with transaction.atomic():
+        print(instructor_form.errors)
 
 
-    #             profile = profile_form.save(commit=False)
+        if profile_form.is_valid():
 
-    #             email = profile_form.cleaned_data.get('email')
-
-    #             password = profile_form.cleaned_data.get('password')
-
-    #             profile.username = email
-
-    #             profile.role = 'Student'
-
-    #             profile.password = make_password(password)
-
-    #             profile.save()
+            with transaction.atomic():
 
 
-    #             if student_form.is_valid():
+                profile = profile_form.save(commit=False)
 
-    #                 student = student_form.save(commit= False)
+                email = profile_form.cleaned_data.get('email')
 
-    #                 student.profile = profile
+                password = profile_form.cleaned_data.get('password')
 
-    #                 student.name = f' {profile.first_name} {profile.last_name}'
+                profile.username = email
+
+                profile.role = 'Instructor'
+
+                profile.password = make_password(password)
+
+                profile.save()
 
 
-    #                 student.save()
+                if instructor_form.is_valid():
 
-    #                 subject = 'Successfully Registered !!!'
+                    instructor = instructor_form.save(commit= False)
 
-    #                 recepient = student.profile.email
+                    instructor.profile = profile
+
+                    instructor.name = f' {profile.first_name} {profile.last_name}'
+
+
+                    instructor.save()
+
+                    subject = 'Successfully Registered !!!'
+
+                    recepient = instructor.profile.email
                     
-    #                 template = 'email/success-registration.html'
+                    template = 'email/success-registration.html'
 
-    #                 context = {'name':student.name,'username':student.profile.email,'password':password}
+                    context = {'name':instructor.name,'username':instructor.profile.email,'password':password}
 
-    #                 thread = threading.Thread(target=send_email,args=(subject,recepient,template,context))
+                    thread = threading.Thread(target=send_email,args=(subject,recepient,template,context))
 
-    #                 thread.start()
+                    thread.start()
 
-    #                 # send_email(subject,recepient,template,context)
+                    # send_email(subject,recepient,template,context)
 
 
                     
-    #                 return redirect('login')
+                    return redirect('login')
             
-    #     data = {
-    #             'profile_form' : profile_form,
-    #             'student_form' : student_form
-    #         }
+        data = {
+                'profile_form' : profile_form,
+                'student_form' : instructor_form
+            }
             
-    #     return render(request, 'students/student-register.html', context=data)
+        return render(request, 'instructors/instructor-register.html', context=data)
