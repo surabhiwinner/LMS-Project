@@ -110,7 +110,12 @@
                     <a href="#" class="nav-link " data-bs-toggle="dropdown">
 
                         <div class="d-flex align-items-center">
-                        <img src="" alt="" style="width: 30px; height: 30px; border-radius:50%;">
+
+                            
+                            {% get_image  request as photo %}
+                            {% if photo %}
+                        <img src="{{photo.url}}" alt="" style="width: 30px; height: 30px; border-radius:50%;">
+                        {% endif %}
                         <p class="text-secondary ms-1"> {{user}}</p>
                         </div>
                     </a>
