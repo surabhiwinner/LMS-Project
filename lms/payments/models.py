@@ -36,3 +36,29 @@ class Payments(BaseClass):
         verbose_name = 'Payments'
 
         verbose_name_plural = 'Payments'
+
+
+class Transactions(BaseClass):
+
+    payment = models.ForeignKey('Payments',on_delete=models.CASCADE)
+
+    rzp_order_id = models.SlugField(null=True,blank=True)
+
+    status = models.CharField(max_length=15, choices=StatusChoices.choices, default=StatusChoices.PENDING)
+
+    transaction_at = models.DateTimeField(null=True,blank=True)
+
+    rzp_paymenyt_id = models.SlugField(null=True,blank=True)
+
+    rzp_payment_signature = models.TextField(null= True, blank= True)
+
+
+    def __str__(self):
+
+        return f'{self.payment.student.name}--{self.course.title}--Transaction'
+    
+    class Meta:
+        
+        verbose_name = 'Transactions'
+
+        verbose_name_plural = 'Transactions'
