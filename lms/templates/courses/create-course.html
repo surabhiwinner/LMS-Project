@@ -21,6 +21,7 @@
                     <p class="text-danger">{{ form.title.errors | join:" " }}</p>
                  {% endif %}
             </div>
+
             <div class="col-md-6">
 
                 <label for="courseImage" class="form-label">Course Image</label>
@@ -30,6 +31,16 @@
                     <p class="text-danger">{{ form.image.errors | join:" " }}</p>
                  {% endif %}
             </div>
+
+             <div class="mb-3">
+                <label for="courseTitle" class="form-label">Related tags </label>
+            <!-- <input type="text" class="form-control" id="courseTitle" name="title" placeholder="Enter course title"> -->
+                {{ form.tags }}
+                {% if form.tags.errors %}
+                    <p class="text-danger">{{ form.tags.errors | join:" " }}</p>
+                 {% endif %}
+            </div>
+
         </div>
   
           <div class="mb-3">

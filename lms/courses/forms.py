@@ -26,11 +26,17 @@ class CourseCreateForm(forms.ModelForm):
                                             'class': 'form-control',
                                             
                                      }),
+
             'description' :forms.Textarea( attrs={
                                             'class' : 'form-control',
                                             'required' : 'required',
                                             'placeholder' : "Enter course description"
 
+                                    }),
+            'tags' : forms.TextInput( attrs={
+                                            'class':'form-control',
+                                            'required':'required',
+                                            
                                     }),
 
 

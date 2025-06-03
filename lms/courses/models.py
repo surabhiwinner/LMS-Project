@@ -71,6 +71,7 @@ class Courses(BaseClass):
     
     category = models.CharField(max_length=25, choices =CategoryChoices.choices) # defining using class CategoryChoice
 
+    tags = models.TextField()
 
     level = models.CharField(max_length=25,choices=LevelChoices.choices)
 

@@ -10,7 +10,7 @@
         "handler": function (response){
             var form = document.createElement("form");
             form.method = "POST";
-            form.action = "";
+            form.action = "{% url 'verify-payment' %}"; //  callback url
 
             var csrfToken = '{{ csrf_token }}';
 
