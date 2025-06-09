@@ -30,13 +30,29 @@ def send_email(subject,recepient,template,context):
 
 def get_recomended_courses(course):
 
+    # data preprocessing
+    #data frame class helps to convert all records/datas in table in text format
+
     data = pd.DataFrame(Courses.objects.all().values('id','title', 'description','type','category','tags','level','instructor__name','instructor__area_of_expertise__area'))
 
+    print(data)
+    # this code defines the table fields 
+
+     # all field is a fileld holds all values here it concantinates all fields
+   
     data['all_fields'] = data['description']+' '+data['type']+' '+data['category']+' '+data['tags']+' '+data['level']+' '+data['instructor__name']+' '+data['instructor__area_of_expertise__area']
     
+    # removing all other fields that are clubed
+    #just id title and all fields is present
+
     data.drop(columns=['description','type','category','tags','level','instructor__name','instructor__area_of_expertise__area'],inplace=True)
 
+    print(data)
 
+    # tfidf_vectoriser from scikit learn converts all these data to numerics in matrix form
+    
+    # tf-idf - time frequency inverse document frequency
+    
     tfidf_vectorizer = TfidfVectorizer(max_features=200, stop_words='english')
 
     vector = tfidf_vectorizer.fit_transform(data['all_fields']).toarray()
